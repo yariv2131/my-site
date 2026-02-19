@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סוויטות סאן מרינו | דלתון, הגליל העליון</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --dark: #1A1610;
+    --cream: #F5F0E8;
+    --warm-gray: #8A7E6E;
+    --text: #2C2416;
+    --teal: #2A7A8C;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--text); direction: rtl; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 16px 40px; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(26,22,16,0.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.3rem; font-weight: 300; letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { color: var(--gold-light); text-decoration: none; font-size: 0.78rem; font-weight: 300; letter-spacing: 1px; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero { height: 100vh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
+  .hero-img { position: absolute; inset: 0; background: url('https://www.resort.co.il/site/images/gallery/resort_973/61635_ttzCh5A.jpg') center/cover no-repeat; opacity: 0.6; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,22,16,0.97) 0%, rgba(26,22,16,0.3) 55%, transparent 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 80px; max-width: 720px; animation: fadeUp 1.2s ease both; }
+  .hero-badge { display: inline-block; border: 1px solid var(--gold); color: var(--gold); font-size: 0.68rem; letter-spacing: 3px; padding: 6px 16px; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; color: #fff; line-height: 1.05; margin-bottom: 8px; }
+  .hero h1 span { color: var(--gold); font-style: italic; }
+  .hero-sub { color: var(--gold-light); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 36px; font-weight: 300; }
+  .hero-rating { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+  .rating-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); line-height: 1; }
+  .rating-info { color: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 300; }
+  .stars { color: var(--gold); letter-spacing: 2px; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary { background: var(--gold); color: var(--dark); padding: 14px 36px; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; font-family: 'Heebo', sans-serif; }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-secondary { border: 1px solid var(--gold); color: var(--gold); padding: 14px 36px; font-size: 0.85rem; letter-spacing: 1px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; background: transparent; font-family: 'Heebo', sans-serif; }
+  .btn-secondary:hover { background: rgba(201,169,110,0.1); }
+
+  .intro-strip { background: var(--dark); padding: 24px 80px; display: flex; justify-content: center; gap: 72px; flex-wrap: wrap; border-bottom: 1px solid rgba(201,169,110,0.2); }
+  .intro-item { text-align: center; }
+  .intro-item .num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); display: block; line-height: 1; }
+  .intro-item .lbl { color: rgba(255,255,255,0.5); font-size: 0.72rem; letter-spacing: 1px; }
+
+  .section { padding: 100px 80px; }
+  .section-label { font-size: 0.68rem; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; display: block; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.1; color: var(--dark); margin-bottom: 20px; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .divider { width: 60px; height: 1px; background: var(--gold); margin-bottom: 32px; }
+
+  /* VIP */
+  .vip-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; }
+  .vip-hero-img { position: relative; overflow: hidden; }
+  .vip-hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s; }
+  .vip-hero-img:hover img { transform: scale(1.04); }
+  .vip-badge { position: absolute; top: 32px; right: 32px; background: var(--gold); color: var(--dark); font-size: 0.65rem; letter-spacing: 3px; padding: 8px 20px; font-weight: 500; }
+  .vip-content { background: var(--dark); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .vip-content .section-title { color: #fff; }
+  .vip-content > p { color: rgba(255,255,255,0.6); line-height: 1.9; font-size: 0.88rem; font-weight: 300; margin-bottom: 28px; }
+  .vip-price-tag { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 24px; display: block; }
+  .vip-features { list-style: none; margin-bottom: 36px; }
+  .vip-features li { color: rgba(255,255,255,0.7); font-size: 0.82rem; padding: 10px 0; border-bottom: 1px solid rgba(201,169,110,0.15); display: flex; align-items: center; gap: 12px; }
+  .vip-features li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+
+  .vip-gallery-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; height: 220px; }
+  .vip-gallery-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.3s; }
+  .vip-gallery-strip img:hover { opacity: 0.82; }
+
+  /* UNITS */
+  .units-section { background: var(--cream); }
+  .units-intro { color: var(--warm-gray); font-size: 0.88rem; line-height: 1.8; max-width: 580px; margin-bottom: 48px; }
+  .units-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .unit-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; }
+  .unit-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s; }
+  .unit-card:hover img { transform: scale(1.06); }
+  .unit-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,22,16,0.92) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; transition: background 0.4s; }
+  .unit-card:hover .unit-overlay { background: linear-gradient(to top, rgba(26,22,16,0.97) 0%, rgba(26,22,16,0.25) 100%); }
+  .unit-tag { font-size: 0.62rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+  .unit-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; color: #fff; margin-bottom: 8px; }
+  .unit-desc { color: rgba(255,255,255,0.65); font-size: 0.78rem; line-height: 1.6; font-weight: 300; max-height: 0; overflow: hidden; transition: max-height 0.4s; }
+  .unit-card:hover .unit-desc { max-height: 120px; }
+  .unit-price { color: var(--gold); font-size: 0.82rem; margin-top: 12px; }
+
+  /* GALLERY */
+  .gallery-section { background: var(--dark); padding: 100px 0; }
+  .gallery-inner { padding: 0 80px; }
+  .gallery-section .section-title { color: #fff; }
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 3px; margin-top: 60px; }
+  .g-item { overflow: hidden; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
+  .g-item:hover img { transform: scale(1.05); }
+  .g-item:first-child { grid-row: 1 / 3; }
+
+  /* FEATURES */
+  .features-section { background: #fff; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 1px; margin-top: 60px; border: 1px solid rgba(201,169,110,0.15); }
+  .feature-item { padding: 36px 24px; border: 1px solid rgba(201,169,110,0.12); transition: background 0.3s; text-align: center; }
+  .feature-item:hover { background: var(--cream); }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+  .feature-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--dark); margin-bottom: 6px; }
+  .feature-desc { font-size: 0.74rem; color: var(--warm-gray); line-height: 1.6; }
+
+  /* SPA */
+  .spa-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 500px; }
+  .spa-img { overflow: hidden; position: relative; }
+  .spa-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .spa-content { background: var(--teal); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .spa-content .section-label { color: rgba(255,255,255,0.7); }
+  .spa-content .section-title { color: #fff; }
+  .spa-content .divider { background: rgba(255,255,255,0.35); }
+  .spa-content > p { color: rgba(255,255,255,0.82); line-height: 1.9; font-size: 0.88rem; font-weight: 300; margin-bottom: 28px; }
+  .spa-contact { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.15); padding: 20px 24px; margin-bottom: 24px; }
+  .spa-contact-icon { font-size: 1.8rem; }
+  .spa-contact-name { color: #fff; font-weight: 500; font-size: 0.9rem; }
+  .spa-contact-phone { color: rgba(255,255,255,0.7); font-size: 0.82rem; }
+
+  /* ATTRACTIONS */
+  .attractions-section { background: var(--cream); }
+  .attr-intro { color: var(--warm-gray); font-size: 0.88rem; line-height: 1.8; max-width: 600px; margin-bottom: 56px; }
+  .attr-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(290px,1fr)); gap: 24px; }
+  .attr-card { background: #fff; border-bottom: 3px solid var(--gold); overflow: hidden; transition: box-shadow 0.3s; }
+  .attr-card:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .attr-card-header { background: var(--dark); padding: 24px 28px; }
+  .attr-card-tag { font-size: 0.62rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .attr-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: #fff; font-weight: 300; }
+  .attr-card-body { padding: 20px 28px; }
+  .attr-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(201,169,110,0.15); font-size: 0.82rem; gap: 12px; }
+  .attr-item:last-child { border-bottom: none; }
+  .attr-item-name { color: var(--text); }
+  .attr-item-phone { color: var(--teal); font-size: 0.78rem; direction: ltr; white-space: nowrap; flex-shrink: 0; }
+  .attr-note { font-size: 0.7rem; color: var(--warm-gray); font-style: italic; display: block; margin-top: 2px; }
+
+  /* REVIEWS */
+  .reviews-section { background: #fff; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; margin-top: 60px; }
+  .review-card { background: var(--cream); padding: 40px 36px; border-bottom: 3px solid var(--gold); position: relative; }
+  .review-quote { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold-light); line-height: 0.5; margin-bottom: 20px; display: block; }
+  .review-text { font-size: 0.88rem; line-height: 1.8; color: var(--text); font-weight: 300; margin-bottom: 24px; font-style: italic; }
+  .review-author { font-size: 0.72rem; color: var(--warm-gray); letter-spacing: 1px; text-transform: uppercase; }
+  .review-score { position: absolute; top: 28px; left: 28px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); line-height: 1; }
+  .review-score span { font-size: 0.62rem; color: var(--warm-gray); display: block; text-align: center; font-family: 'Heebo', sans-serif; }
+
+  /* PRICES */
+  .prices-section { background: var(--cream); }
+  .prices-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 2px; margin-top: 60px; }
+  .price-card { border: 1px solid rgba(201,169,110,0.25); padding: 48px 36px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; background: #fff; }
+  .price-card.featured { background: var(--dark); }
+  .price-card.featured::before { content: 'פופולרי'; position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--dark); font-size: 0.62rem; padding: 4px 16px; letter-spacing: 2px; }
+  .price-card:hover { box-shadow: 0 20px 60px rgba(201,169,110,0.15); }
+  .price-type { font-size: 0.68rem; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .price-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 32px; color: var(--dark); }
+  .price-card.featured .price-name { color: #fff; }
+  .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; color: var(--gold); line-height: 1; }
+  .price-currency { font-size: 1.5rem; vertical-align: top; line-height: 2; }
+  .price-period { font-size: 0.72rem; color: var(--warm-gray); margin-top: 4px; }
+  .price-card.featured .price-period { color: rgba(255,255,255,0.5); }
+  .price-divider { border: none; border-top: 1px solid rgba(201,169,110,0.2); margin: 28px 0; }
+  .price-perks { list-style: none; font-size: 0.78rem; color: var(--warm-gray); line-height: 2.2; }
+  .price-card.featured .price-perks { color: rgba(255,255,255,0.55); }
+
+  /* CALENDAR */
+  .calendar-section { background: #fff; }
+  .calendar-intro { color: var(--warm-gray); font-size: 0.88rem; line-height: 1.8; max-width: 600px; margin-bottom: 40px; }
+  .calendar-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .cal-tab { padding: 10px 22px; border: 1px solid rgba(201,169,110,0.4); background: none; cursor: pointer; font-size: 0.78rem; font-family: 'Heebo', sans-serif; color: var(--warm-gray); transition: all 0.2s; }
+  .cal-tab.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 500; }
+  .calendar-wrap { background: var(--cream); border: 1px solid rgba(201,169,110,0.3); padding: 44px; }
+  .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .cal-nav { background: none; border: 1px solid var(--gold); color: var(--gold); width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; transition: all 0.2s; font-family: 'Heebo', sans-serif; }
+  .cal-nav:hover { background: var(--gold); color: var(--dark); }
+  .cal-month { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; }
+  .cal-unit-label { font-size: 0.68rem; color: var(--warm-gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; text-align: center; }
+  .cal-day-name { font-size: 0.68rem; color: var(--warm-gray); padding: 8px; }
+  .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+  .cal-day:hover:not(.empty):not(.taken) { border-color: var(--gold); color: var(--gold); }
+  .cal-day.taken { background: rgba(180,60,60,0.08); color: rgba(0,0,0,0.28); cursor: not-allowed; text-decoration: line-through; }
+  .cal-day.selected { background: var(--gold); color: var(--dark) !important; border-color: var(--gold); font-weight: 500; }
+  .cal-day.today { font-weight: 600; border-color: var(--gold-light); }
+  .cal-legend { display: flex; gap: 28px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+  .cal-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--warm-gray); }
+  .cal-dot { width: 12px; height: 12px; border-radius: 2px; }
+
+  /* GCAL */
+  .gcal-section { background: var(--cream); padding: 80px; }
+  .gcal-wrap { margin-top: 36px; border: 1px solid rgba(201,169,110,0.3); overflow: hidden; }
+  .gcal-wrap iframe { width: 100%; height: 500px; border: none; display: block; }
+  .gcal-note { font-size: 0.78rem; color: var(--warm-gray); margin-top: 16px; text-align: center; line-height: 1.7; background: rgba(201,169,110,0.08); padding: 16px 24px; border-right: 3px solid var(--gold); }
+
+  /* CONTACT */
+  .contact-section { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .contact-info { padding: 90px 64px; border-left: 1px solid rgba(201,169,110,0.12); }
+  .contact-info .section-title { color: #fff; }
+  .contact-info > p { color: rgba(255,255,255,0.6); font-size: 0.88rem; line-height: 1.8; font-weight: 300; margin-bottom: 44px; }
+  .contact-details { list-style: none; }
+  .contact-details li { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(201,169,110,0.12); color: rgba(255,255,255,0.7); font-size: 0.82rem; }
+  .contact-details li strong { color: var(--gold); font-weight: 400; min-width: 72px; flex-shrink: 0; }
+  .wa-btn { display: flex; align-items: center; gap: 12px; background: #25D366; color: #fff; padding: 14px 28px; text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-top: 28px; transition: background 0.3s; width: fit-content; }
+  .wa-btn:hover { background: #1ebe57; }
+  .contact-form-wrap { padding: 90px 64px; }
+  .contact-form-wrap .section-title { color: #fff; margin-bottom: 36px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; color: rgba(255,255,255,0.42); font-size: 0.66rem; letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(201,169,110,0.2); color: #fff; padding: 12px 16px; font-size: 0.85rem; font-family: 'Heebo', sans-serif; direction: rtl; outline: none; transition: border-color 0.3s; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--dark); }
+  .form-group textarea { height: 110px; resize: none; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  footer { background: #0D0B08; padding: 56px 80px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; border-top: 1px solid rgba(201,169,110,0.12); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 300; letter-spacing: 2px; }
+  .footer-logo span { font-style: italic; }
+  footer p { color: rgba(255,255,255,0.3); font-size: 0.72rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 0.7rem; }
+    .hero-content { padding: 48px 24px; }
+    .intro-strip { padding: 20px 24px; gap: 28px; }
+    .section { padding: 60px 24px; }
+    .vip-hero { grid-template-columns: 1fr; }
+    .vip-hero-img { height: 340px; }
+    .vip-gallery-strip { grid-template-columns: repeat(2,1fr); height: auto; }
+    .vip-gallery-strip img { height: 160px; }
+    .units-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .g-item:first-child { grid-row: auto; }
+    .spa-section { grid-template-columns: 1fr; }
+    .spa-img { height: 280px; }
+    .contact-section { grid-template-columns: 1fr; }
+    .contact-info { padding: 60px 24px; border-left: none; border-bottom: 1px solid rgba(201,169,110,0.15); }
+    .contact-form-wrap { padding: 60px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .gcal-section { padding: 60px 24px; }
+    .gcal-wrap iframe { height: 380px; }
+    footer { padding: 40px 24px; flex-direction: column; text-align: center; }
+    .gallery-inner { padding: 0 24px; }
+    .calendar-wrap { padding: 24px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">סאן מרינו</div>
+  <div class="nav-links">
+    <a href="#vip">VIP</a>
+    <a href="#units">3 יחידות</a>
+    <a href="#gallery">גלריה</a>
+    <a href="#attractions">אטרקציות</a>
+    <a href="#prices">מחירים</a>
+    <a href="#calendar">זמינות</a>
+    <a href="#contact">צור קשר</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-badge">דלתון · גליל עליון</span>
+    <h1>סוויטות<br><span>סאן מרינו</span></h1>
+    <p class="hero-sub">SUITES &amp; LUXURY EXPERIENCES · DALTON</p>
+    <div class="hero-rating">
+      <span class="rating-num">9.0</span>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="rating-info">48 חוות דעת מאומתות</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#calendar" class="btn-primary">בדוק זמינות</a>
+      <a href="#contact" class="btn-secondary">צור קשר עם יריב</a>
+    </div>
+  </div>
+</section>
+
+<div class="intro-strip">
+  <div class="intro-item"><span class="num">2</span><span class="lbl">מתחמים</span></div>
+  <div class="intro-item"><span class="num">4</span><span class="lbl">יחידות אירוח</span></div>
+  <div class="intro-item"><span class="num">9.3</span><span class="lbl">דירוג ריזורט</span></div>
+  <div class="intro-item"><span class="num">∞</span><span class="lbl">רגעים לא נשכחים</span></div>
+</div>
+
+<!-- VIP FIRST -->
+<section class="vip-hero fade-in" id="vip">
+  <div class="vip-hero-img">
+    <img src="https://www.resort.co.il/site/images/gallery/resort_973/61635_ttzCh5A.jpg" alt="סאן מרינו VIP">
+    <span class="vip-badge">VIP EXCLUSIVE</span>
+  </div>
+  <div class="vip-content">
+    <span class="section-label">יחידה בלעדית · יחידה אחת בלבד</span>
+    <h2 class="section-title">סאן מרינו<br><em>VIP</em></h2>
+    <div class="divider"></div>
+    <p>יחידה אחת בלבד. 50 מ"ר של פינוק מוחלט בלב הגליל העליון. בריכה פרטית מחוממת, ג'קוזי, Netflix, מכונת אספרסו, מטבח חיצוני מאובזר, וחלוקי רחצה רכים. ציון 9.0 על פי 26 חוות דעת אמיתיות.</p>
+    <span class="vip-price-tag">מ-1,350 ₪ ללילה בהזמנת 2 לילות</span>
+    <ul class="vip-features">
+      <li>בריכה פרטית מחוממת ומגודרת</li>
+      <li>ג'קוזי + חלוקי רחצה</li>
+      <li>מכונת אספרסו + קפסולות</li>
+      <li>Netflix · YES · מסך LCD</li>
+      <li>מטבח חיצוני מלא + טרמפולינה</li>
+      <li>עד 6 אורחים · נגישות מלאה</li>
+    </ul>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="#contact" class="btn-primary">הזמינו VIP</a>
+      <a href="https://wa.me/9720523300666" class="btn-secondary" target="_blank">וואטסאפ ליריב</a>
+    </div>
+  </div>
+</section>
+
+<div class="vip-gallery-strip">
+  <img src="https://www.resort.co.il/site/images/gallery/resort_973/61636_wWkvyhv.jpg" alt="">
+  <img src="https://www.resort.co.il/site/images/gallery/resort_973/61639_kvcSKUG.jpg" alt="">
+  <img src="https://www.resort.co.il/site/images/gallery/resort_973/61641_YTCpaxT.jpg" alt="">
+  <img src="https://www.resort.co.il/site/images/gallery/resort_973/61648_GzL3zt8.jpg" alt="">
+</div>
+
+<!-- 3 UNITS -->
+<section class="section units-section fade-in" id="units">
+  <span class="section-label">מתחם סאן מרינו</span>
+  <h2 class="section-title">שלוש יחידות,<br><em>עולם שלם</em></h2>
+  <div class="divider"></div>
+  <p class="units-intro">מתחם הסוויטות שלא שוכחים. בריכה פרטית גדולה, עיצוב קסום, ואווירה שמדברת אל הלב. מתאים לזוגות, משפחות, מסיבות חברים ואירועים קטנים. דירוג 8.9 · 22 חוות דעת.</p>
+  <div class="units-grid">
+    <div class="unit-card">
+      <img src="https://www.resort.co.il/site/images/gallery/resort_744/44142_ZrXzXnb.jpg" alt="סוויטה זוגית">
+      <div class="unit-overlay">
+        <span class="unit-tag">רומנטי · פינוקי</span>
+        <h3 class="unit-name">סוויטה זוגית</h3>
+        <p class="unit-desc">עיצוב אינטימי, ג'קוזי, וגישה לבריכה הפרטית המשותפת.</p>
+        <span class="unit-price">מ-600 ₪ ללילה</span>
+      </div>
+    </div>
+    <div class="unit-card">
+      <img src="https://www.resort.co.il/site/images/gallery/resort_744/44140_4f31TK2.jpg" alt="סוויטה משפחתית">
+      <div class="unit-overlay">
+        <span class="unit-tag">משפחתי · מרווח</span>
+        <h3 class="unit-name">סוויטה משפחתית</h3>
+        <p class="unit-desc">מיטות נוער, מטבחון מאובזר, וכל מה שצריך לחופשה משפחתית.</p>
+        <span class="unit-price">מ-600 ₪ ללילה</span>
+      </div>
+    </div>
+    <div class="unit-card">
+      <img src="https://www.resort.co.il/site/images/gallery/resort_744/61625_9F4cbEL.jpg" alt="יחידת Luxury">
+      <div class="unit-overlay">
+        <span class="unit-tag">פרמיום · יוקרה</span>
+        <h3 class="unit-name">יחידה Luxury</h3>
+        <p class="unit-desc">מסך 75 אינץ', YES, עיצוב יוקרתי. ההגדרה המחודשת של חופשה בצפון.</p>
+        <span class="unit-price">מ-650 ₪ ללילה</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section fade-in" id="gallery">
+  <div class="gallery-inner">
+    <span class="section-label" style="color:var(--gold)">גלריה</span>
+    <h2 class="section-title">חוויה שמדברת<br><em>בשפת התמונות</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-grid" style="margin-top:60px;">
+    <div class="g-item"><img src="https://www.resort.co.il/site/images/gallery/resort_744/44110_MpUPGDJ.jpg" alt="בריכה"></div>
+    <div class="g-item"><img src="https://www.resort.co.il/site/images/gallery/resort_744/44109_SvdjsMT.jpg" alt="חצר"></div>
+    <div class="g-item"><img src="https://www.resort.co.il/site/images/gallery/resort_744/54208_ZYMQXLp.jpg" alt="חדר"></div>
+    <div class="g-item"><img src="https://www.resort.co.il/site/images/gallery/resort_744/44115_4jVrSjc.jpg" alt="מרפסת"></div>
+    <div class="g-item"><img src="https://www.resort.co.il/site/images/gallery/resort_744/44116_86wMevQ.jpg" alt="נוף"></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-section fade-in">
+  <span class="section-label">מה מחכה לכם</span>
+  <h2 class="section-title">פינוקים שתזכרו<br><em>עוד שנים</em></h2>
+  <div class="divider"></div>
+  <div class="features-grid">
+    <div class="feature-item"><span class="feature-icon">🏊</span><h4 class="feature-name">בריכה פרטית</h4><p class="feature-desc">מחוממת, מגודרת, פרטית לחלוטין</p></div>
+    <div class="feature-item"><span class="feature-icon">🛁</span><h4 class="feature-name">ג'קוזי</h4><p class="feature-desc">אמבט ספא בכל יחידה</p></div>
+    <div class="feature-item"><span class="feature-icon">🍖</span><h4 class="feature-name">עמדת BBQ</h4><p class="feature-desc">מנגל, שולחנות גינה, פינות ישיבה</p></div>
+    <div class="feature-item"><span class="feature-icon">🏓</span><h4 class="feature-name">פינג פונג</h4><p class="feature-desc">ערסל, מיטות שיזוף, ריהוט גן</p></div>
+    <div class="feature-item"><span class="feature-icon">🍷</span><h4 class="feature-name">בקבוק יין חינם</h4><p class="feature-desc">ארוחות שף בהזמנה</p></div>
+    <div class="feature-item"><span class="feature-icon">🐾</span><h4 class="feature-name">חיות מחמד</h4><p class="feature-desc">מקבלים בשמחה</p></div>
+  </div>
+</section>
+
+<!-- SPA / MASSAGE -->
+<section class="spa-section fade-in">
+  <div class="spa-img">
+    <img src="https://www.resort.co.il/site/images/gallery/resort_744/44108_y3wX8uh.jpg" alt="ספא ועיסוי">
+  </div>
+  <div class="spa-content">
+    <span class="section-label">פינוק מוחלט</span>
+    <h2 class="section-title">עיסוי ומסאז'<br><em>עד הדלת</em></h2>
+    <div class="divider"></div>
+    <p>הוסיפו חוויית עיסוי פרטי ישירות ביחידה שלכם. עליזה מגיעה אליכם — אין צורך לצאת מהאירוח. מתאים לזוגות, חבורות ואירועים מיוחדים. הזמינו מראש לבחירת שעה נוחה.</p>
+    <div class="spa-contact">
+      <span class="spa-contact-icon">💆</span>
+      <div>
+        <div class="spa-contact-name">עליזה — עיסוי פרטי ביחידה</div>
+        <div class="spa-contact-phone">052-6393469</div>
+      </div>
+    </div>
+    <a href="https://wa.me/9720526393469" class="btn-primary" target="_blank">הזמינו עיסוי</a>
+  </div>
+</section>
+
+<!-- ATTRACTIONS -->
+<section class="section attractions-section fade-in" id="attractions">
+  <span class="section-label">האזור שמסביב</span>
+  <h2 class="section-title">מה לעשות<br><em>באזור דלתון</em></h2>
+  <div class="divider"></div>
+  <p class="attr-intro">יריב דאג לכם לכל מה שצריך — מאטרקציות שטח ועד מסעדות שף ויקבים מהטובים בצפון. כל המספרים כאן, הכל מתואם מראש. חופשה הכי טעימה!</p>
+
+  <div class="attr-grid">
+    <div class="attr-card">
+      <div class="attr-card-header">
+        <span class="attr-card-tag">פינוק ואירוח</span>
+        <h3 class="attr-card-title">בלונים | מארזים | ארוחות</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item">
+          <span class="attr-item-name">בלונים, מארזים, פלטת פירות — ליאל</span>
+          <span class="attr-item-phone">050-4669690</span>
+        </div>
+        <div class="attr-item">
+          <div><span class="attr-item-name">עוגות ומאפים — חופית</span><span class="attr-note">הזמנה מראש</span></div>
+          <span class="attr-item-phone">050-6856455</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="attr-card">
+      <div class="attr-card-header">
+        <span class="attr-card-tag">אקשן בטבע</span>
+        <h3 class="attr-card-title">טרקטורונים | סוסים</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item">
+          <span class="attr-item-name">טיולי טרקטורונים — דקל</span>
+          <span class="attr-item-phone">050-6360785</span>
+        </div>
+        <div class="attr-item">
+          <span class="attr-item-name">טיולי סוסים — אלכס</span>
+          <span class="attr-item-phone">053-7226346</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="attr-card">
+      <div class="attr-card-header">
+        <span class="attr-card-tag">קולינריה · מסעדות</span>
+        <h3 class="attr-card-title">מסעדות בשרים</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item"><span class="attr-item-name">בת יער</span><span class="attr-item-phone">04-6921788</span></div>
+        <div class="attr-item"><span class="attr-item-name">גריל עץ, מצפה הימים</span><span class="attr-item-phone">04-6994520</span></div>
+        <div class="attr-item"><span class="attr-item-name">שמחה ובניו, ראש פינה</span><span class="attr-item-phone">04-9555109</span></div>
+        <div class="attr-item"><span class="attr-item-name">מסעדת הארי 8, צפת</span><span class="attr-item-phone">04-6920033</span></div>
+      </div>
+    </div>
+
+    <div class="attr-card">
+      <div class="attr-card-header">
+        <span class="attr-card-tag">יין ואדמה</span>
+        <h3 class="attr-card-title">יקבים — אזור דלתון</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item"><span class="attr-item-name">יקב רימון</span><span class="attr-item-phone">04-6822325</span></div>
+        <div class="attr-item"><div><span class="attr-item-name">יקב אדיר</span><span class="attr-note">מסעדה חלבית במקום</span></div><span class="attr-item-phone">04-6991039</span></div>
+        <div class="attr-item"><span class="attr-item-name">יקב דלתון</span><span class="attr-item-phone">04-6987683</span></div>
+        <div class="attr-item"><div><span class="attr-item-name">יקב כמיסה</span><span class="attr-note">חלבית ובשרית במקום</span></div><span class="attr-item-phone">04-6002655</span></div>
+        <div class="attr-item"><span class="attr-item-name">יקב רמות נפתלי</span><span class="attr-item-phone">04-6940371</span></div>
+      </div>
+    </div>
+
+    <div class="attr-card">
+      <div class="attr-card-header">
+        <span class="attr-card-tag">משלוח · הזמנה ליחידה</span>
+        <h3 class="attr-card-title">אוכל עד הדלת</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item"><span class="attr-item-name">שניצליה, צפת</span><span class="attr-item-phone">04-6922922</span></div>
+        <div class="attr-item"><span class="attr-item-name">פיצבלה</span><span class="attr-item-phone">052-2221997</span></div>
+        <div class="attr-item"><span class="attr-item-name">ג'רביס המבורגר / פיצוציה</span><span class="attr-item-phone">077-4396974</span></div>
+        <div class="attr-item"><div><span class="attr-item-name">טיקטק, גוש חלב</span><span class="attr-note">לא כשר</span></div><span class="attr-item-phone">04-6989899</span></div>
+        <div class="attr-item"><div><span class="attr-item-name">סוזאנה</span><span class="attr-note">לא כשר</span></div><span class="attr-item-phone">04-8223331</span></div>
+      </div>
+    </div>
+
+    <div class="attr-card" style="border-bottom-color:var(--teal);">
+      <div class="attr-card-header" style="background:var(--teal);">
+        <span class="attr-card-tag" style="color:rgba(255,255,255,0.7)">איש הקשר שלך</span>
+        <h3 class="attr-card-title">יריב — תמיד זמין</h3>
+      </div>
+      <div class="attr-card-body">
+        <div class="attr-item"><span class="attr-item-name">📱 מספר ראשי</span><span class="attr-item-phone" style="color:var(--teal)">052-3300666</span></div>
+        <div class="attr-item"><span class="attr-item-name">📞 מספר נוסף</span><span class="attr-item-phone" style="color:var(--teal)">058-4520662</span></div>
+        <div style="margin-top:20px;">
+          <a href="https://wa.me/9720523300666" class="wa-btn" target="_blank" style="width:100%;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            וואטסאפ ליריב
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews-section fade-in">
+  <span class="section-label">חוות דעת</span>
+  <h2 class="section-title">מה אומרים<br><em>האורחים שלנו</em></h2>
+  <div class="divider"></div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <span class="review-score">10<span>/ 10</span></span>
+      <span class="review-quote">"</span>
+      <p class="review-text">חיפשנו מקום לא יקר ולא פשוט מדי, וכאן בסן מרינו היה לנו מושלם! הבריכה ממש טובה — כולם אמרו שהיא מושלמת!</p>
+      <span class="review-author">אלי · קבוצת חברים · יולי 2025</span>
+    </div>
+    <div class="review-card">
+      <span class="review-score">9.6<span>/ 10</span></span>
+      <span class="review-quote">"</span>
+      <p class="review-text">מקום מאוד גדול ומרווח, אך עדיין פרטי מאוד. הבריכה גדולה ונקייה, ואהבנו מאוד את רמת הנוחות שהייתה לנו בסוויטה.</p>
+      <span class="review-author">שירה · זוגות · יולי 2025</span>
+    </div>
+    <div class="review-card">
+      <span class="review-score">10<span>/ 10</span></span>
+      <span class="review-quote">"</span>
+      <p class="review-text">הסוויטה נעימה מאוד, פרטית בכל פינה. נהנינו מהבריכה המחוממת ומהג'קוזי. היה מאוד כיף, אחלה אירוח!</p>
+      <span class="review-author">מרים · זוגות · ינואר 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICES -->
+<section class="section prices-section fade-in" id="prices">
+  <span class="section-label">מחירון</span>
+  <h2 class="section-title">השקעה בחוויה<br><em>שלא תשכחו</em></h2>
+  <div class="divider"></div>
+  <div class="prices-grid">
+    <div class="price-card">
+      <p class="price-type">מתחם סאן מרינו</p>
+      <h3 class="price-name">סוויטה זוגית<br>/ משפחתית</h3>
+      <div class="price-amount"><span class="price-currency">₪</span>700</div>
+      <p class="price-period">ללילה באמצע שבוע</p>
+      <hr class="price-divider">
+      <ul class="price-perks">
+        <li>600 ₪ בהזמנת 2 לילות</li>
+        <li>900 ₪ סוף שבוע</li>
+        <li>750 ₪ סו"ש + 2 לילות</li>
+        <li>תוספת לילד: 150 ₪</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <p class="price-type">מתחם סאן מרינו</p>
+      <h3 class="price-name">יחידה Luxury</h3>
+      <div class="price-amount"><span class="price-currency">₪</span>750</div>
+      <p class="price-period">ללילה באמצע שבוע</p>
+      <hr class="price-divider">
+      <ul class="price-perks">
+        <li>650 ₪ בהזמנת 2 לילות</li>
+        <li>950 ₪ סוף שבוע</li>
+        <li>800 ₪ סו"ש + 2 לילות</li>
+        <li>מסך 75"</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <p class="price-type">VIP בלעדי</p>
+      <h3 class="price-name">סאן מרינו VIP</h3>
+      <div class="price-amount"><span class="price-currency">₪</span>1,400</div>
+      <p class="price-period">ללילה באמצע שבוע</p>
+      <hr class="price-divider">
+      <ul class="price-perks">
+        <li>1,350 ₪ בהזמנת 2 לילות</li>
+        <li>1,750 ₪ סו"ש + 2 לילות</li>
+        <li>עד 6 אורחים</li>
+        <li>תוספת לילד: 150 ₪</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:0.78rem;color:var(--warm-gray);text-align:center;">* ארוחת בוקר: 125 ₪ לאדם · תוספת מבוגר: 200 ₪</p>
+</section>
+
+<!-- CALENDAR -->
+<section class="section calendar-section fade-in" id="calendar">
+  <span class="section-label">זמינות</span>
+  <h2 class="section-title">בדקו <em>מתי פנוי</em></h2>
+  <div class="divider"></div>
+  <p class="calendar-intro">בחרו יחידה וראו זמינות. לאישור סופי — שלחו וואטסאפ ליריב. התאריכים המוצגים הם להמחשה; יומן Google מחובר מטה.</p>
+  <div class="calendar-tabs">
+    <button class="cal-tab active" onclick="setUnit(0)">סוויטה זוגית</button>
+    <button class="cal-tab" onclick="setUnit(1)">סוויטה משפחתית</button>
+    <button class="cal-tab" onclick="setUnit(2)">יחידה Luxury</button>
+    <button class="cal-tab" onclick="setUnit(3)">VIP</button>
+  </div>
+  <div class="calendar-wrap">
+    <div class="calendar-header">
+      <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+      <div style="text-align:center;">
+        <div class="cal-month" id="cal-month-display"></div>
+        <div class="cal-unit-label" id="cal-unit-label">סוויטה זוגית</div>
+      </div>
+      <button class="cal-nav" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-grid">
+      <div class="cal-day-name">א׳</div><div class="cal-day-name">ב׳</div><div class="cal-day-name">ג׳</div>
+      <div class="cal-day-name">ד׳</div><div class="cal-day-name">ה׳</div><div class="cal-day-name">ו׳</div><div class="cal-day-name">ש׳</div>
+    </div>
+    <div class="cal-legend">
+      <span class="cal-legend-item"><span class="cal-dot" style="background:var(--gold)"></span>נבחר</span>
+      <span class="cal-legend-item"><span class="cal-dot" style="background:rgba(180,60,60,0.12);border:1px solid rgba(180,60,60,0.3)"></span>תפוס</span>
+      <span class="cal-legend-item"><span class="cal-dot" style="border:1px solid var(--gold-light);background:transparent"></span>פנוי</span>
+    </div>
+    <div style="margin-top:28px;text-align:center;">
+      <a href="https://wa.me/9720523300666" class="btn-primary" target="_blank">לאישור הזמנה — וואטסאפ ליריב</a>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE CALENDAR -->
+<div class="gcal-section fade-in">
+  <span class="section-label" style="color:var(--gold)">יומן מחובר</span>
+  <h2 class="section-title">יומן Google<br><em>מעודכן בזמן אמת</em></h2>
+  <div class="divider"></div>
+  <p style="color:var(--warm-gray);font-size:0.88rem;line-height:1.8;max-width:620px;margin-bottom:8px;">כאשר יריב מסמן תאריך כתפוס ביומן האישי שלו, הוא יופיע כאן אוטומטית. אין צורך לעדכן ידנית.</p>
+  <div class="gcal-wrap">
+    <iframe
+      src="https://calendar.google.com/calendar/embed?showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&mode=MONTH&height=500&wkst=1&bgcolor=%23F5F0E8&hl=he"
+      width="100%" height="500" frameborder="0" scrolling="no">
+    </iframe>
+  </div>
+  <p class="gcal-note">💡 <strong>ליריב:</strong> כדי לחבר את היומן האישי שלך לדף — כנס ל-Google Calendar ← הגדרות ← בחר יומן ← "קישור להטמעה", העתק את ה-src ושלח לי. אעדכן תוך דקה!</p>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section fade-in" id="contact">
+  <div class="contact-info">
+    <span class="section-label" style="color:var(--gold)">יצירת קשר</span>
+    <h2 class="section-title">נשמח<br><em>לשמוע מכם</em></h2>
+    <div class="divider"></div>
+    <p>מוכנים לחוויה שלא תשכחו? צרו קשר עם יריב ונסייע לכם בבחירת היחידה המושלמת, בדיקת זמינות, ובכל שאלה.</p>
+    <ul class="contact-details">
+      <li><strong>מיקום:</strong> דלתון, גליל עליון</li>
+      <li><strong>יריב:</strong> 052-3300666 | 058-4520662</li>
+      <li><strong>צ'ק אין:</strong> 15:00</li>
+      <li><strong>צ'ק אאוט:</strong> 11:00 (שבת: 15:00)</li>
+      <li><strong>ביטול:</strong> עד 7 ימים לפני – 50%</li>
+      <li><strong>תשלום:</strong> מזומן / צ'ק / אשראי</li>
+    </ul>
+    <a href="https://wa.me/9720523300666" class="wa-btn" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      וואטסאפ ליריב — 052-3300666
+    </a>
+  </div>
+  <div class="contact-form-wrap">
+    <span class="section-label" style="color:var(--gold)">הזמינו עכשיו</span>
+    <h2 class="section-title">שלחו<br><em>פנייה</em></h2>
+    <div class="form-row">
+      <div class="form-group"><label>שם</label><input type="text" id="f-name" placeholder="ישראל ישראלי"></div>
+      <div class="form-group"><label>טלפון</label><input type="tel" id="f-phone" placeholder="050-0000000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>תאריך הגעה</label><input type="date" id="f-checkin"></div>
+      <div class="form-group"><label>תאריך עזיבה</label><input type="date" id="f-checkout"></div>
+    </div>
+    <div class="form-group">
+      <label>יחידת אירוח</label>
+      <select id="f-unit">
+        <option value="">בחרו יחידה</option>
+        <option>סוויטה זוגית</option>
+        <option>סוויטה משפחתית</option>
+        <option>יחידה Luxury</option>
+        <option>סאן מרינו VIP</option>
+      </select>
+    </div>
+    <div class="form-group"><label>הערות</label><textarea id="f-notes" placeholder="מספר אורחים, בקשות מיוחדות, אירוע..."></textarea></div>
+    <button class="btn-primary" style="width:100%;font-size:0.88rem;padding:18px;" onclick="sendWhatsapp()">שלחו פנייה בוואטסאפ ✓</button>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">סאן מרינו <span>Suites</span></div>
+    <p style="margin-top:8px;">דלתון, גליל עליון · יריב: 052-3300666</p>
+  </div>
+  <p>© 2026 סוויטות סאן מרינו · כל הזכויות שמורות</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }), { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const hebrewMonths = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  const unitNames = ['סוויטה זוגית','סוויטה משפחתית','יחידה Luxury','סאן מרינו VIP'];
+  const takenDates = [[3,4,10,11,17,18,24,25],[5,6,12,13,20,21],[1,2,8,9,15,16,22,23],[7,8,14,15,21,22,28,29]];
+  let currentDate = new Date(), currentUnit = 0;
+
+  function setUnit(idx) {
+    currentUnit = idx;
+    document.querySelectorAll('.cal-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+    document.getElementById('cal-unit-label').textContent = unitNames[idx];
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    const display = document.getElementById('cal-month-display');
+    const grid = document.getElementById('cal-grid');
+    if (!display || !grid) return;
+    display.textContent = hebrewMonths[currentDate.getMonth()] + ' ' + currentDate.getFullYear();
+    const headers = Array.from(grid.querySelectorAll('.cal-day-name'));
+    grid.innerHTML = '';
+    headers.forEach(h => grid.appendChild(h));
+    const year = currentDate.getFullYear(), month = currentDate.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+    const taken = takenDates[currentUnit] || [];
+    for (let i = 0; i < firstDay; i++) { const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el); }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      const isTaken = taken.includes(d);
+      const isToday = today.getDate()===d && today.getMonth()===month && today.getFullYear()===year;
+      el.className = 'cal-day ' + (isTaken ? 'taken' : 'available') + (isToday ? ' today' : '');
+      el.textContent = d;
+      if (!isTaken) { el.onclick = function() { document.querySelectorAll('.cal-day.selected').forEach(x => x.classList.remove('selected')); this.classList.add('selected'); }; }
+      grid.appendChild(el);
+    }
+  }
+
+  function changeMonth(dir) { currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + dir, 1); renderCalendar(); }
+  renderCalendar();
+
+  function sendWhatsapp() {
+    const name = document.getElementById('f-name')?.value || '';
+    const phone = document.getElementById('f-phone')?.value || '';
+    const checkin = document.getElementById('f-checkin')?.value || '';
+    const checkout = document.getElementById('f-checkout')?.value || '';
+    const unit = document.getElementById('f-unit')?.value || '';
+    const notes = document.getElementById('f-notes')?.value || '';
+    const msg = encodeURIComponent(`שלום יריב! 👋\nשם: ${name}\nטלפון: ${phone}\nיחידה: ${unit}\nצ'ק אין: ${checkin}\nצ'ק אאוט: ${checkout}\nהערות: ${notes}`);
+    window.open(`https://wa.me/9720523300666?text=${msg}`, '_blank');
+  }
+</script>
+</body>
+</html>
